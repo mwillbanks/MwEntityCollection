@@ -59,11 +59,11 @@ abstract class AbstractEntity
      * @throws ZfcEntityCollection\Exception\InvalidArgumentException
      */
     public function __get($key) {
-        if (!in_array($k, $this->propertyLoaded)) {
+        if (!in_array($key, $this->propertyLoaded)) {
             throw new Exception\InvalidArgumentException(
                 sprintf('Key: "%k" was not loaded', $key));
         }
-        return $this->$k;
+        return $this->$key;
     }
 
     /**
@@ -81,12 +81,12 @@ abstract class AbstractEntity
         }
         if (!property_exists($this, $key) || in_array($key, $this->propertyBlacklist)) {
             throw new Exception\InvalidArgumentException(
-                sprintf('Key: "%s" is not an allowed property'));
+                sprintf('Key: "%s" is not an allowed property', $key));
         }
         if ($this->$key !== $value) {
             $this->$key = $value;
-            $this->propertyDirty[] = $value;
-            $this->propertyLoaded[] = $value;
+            $this->propertyDirty[] = $key;
+            $this->propertyLoaded[] = $key;
         }
         return $this;
     }

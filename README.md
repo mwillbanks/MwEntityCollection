@@ -48,7 +48,9 @@ Examples
 --------
 
 ```php
-namespace ZfcEntityCollection\Entity;
+namespace ZfcEntityCollection;
+
+use ZfcEntityCollection\Entity\AbstractEntity;
 
 class EntityTest extends AbstractEntity
 {
@@ -69,13 +71,21 @@ class EntityTest extends AbstractEntity
      */
     protected $youcantuseme;
 
-    public function __construct() {
+    /**
+     * Override Constructor to Append Blacklist
+     * @return EntityTest
+     */
+    public function __construct(array $data = null) {
         $this->propertyBlacklist[] = 'youcantuseme';
+        parent::__construct($data);
     }
 }
 ```
+
 ```php
-namespace ZfcEntityCollection\Collection;
+namespace ZfcEntityCollection;
+
+use zfcEntityCollection\Collection\AbstractCollection;
 
 class CollectionTest extends AbstractCollection
 {
@@ -83,13 +93,20 @@ class CollectionTest extends AbstractCollection
      * Entity Class
      * @var string
      */
-    protected $entity = '\ZfcEntityCollection\Entity\EntityTest';
+    protected $entity = '\ZfcEntityCollection\EntityTest';
 }
 ```
 
 ```php
-use \ZfcEntityCollection\Entity\EntityTest,
-    \ZfcEntityCollection\Collection\CollectionTest;
+require 'Entity/AbstractEntity.php';
+require 'Collection/AbstractCollection.php';
+require 'Exception.php';
+require 'Exception/InvalidArgumentException.php';
+require 'EntityTest.php';
+require 'CollectionTest.php';
+
+use zfcEntityCollection\EntityTest,
+    zfcEntityCollection\CollectionTest;
 
 $collection = new CollectionTest(array(
     array(
@@ -106,7 +123,20 @@ $collection = new CollectionTest(array(
 foreach ($collection as $c) {
     var_dump($c->toArray(), $c->isDirty()); // array, false
     $c->id = 5;
-    var_dump($c->id, $c->isDirty()); // 5, true
+    $c->desc = 'yo';
+    var_dump($c->id, $c->toArray(true)); // 5, array(id => 5, desc => yo)
+}
+
+try {
+    $c->youcantuseme = 'dude';
+} catch (Exception $e) {
+    echo 'Caught exception on blacklist property' . PHP_EOL;
+}
+
+try {
+    $c->doesnotexist = 'dude';
+} catch (Exception $e) {
+    echo 'Caught exception on non-existant property' . PHP_EOL;
 }
 ```
 
