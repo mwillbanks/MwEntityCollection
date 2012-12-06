@@ -84,7 +84,12 @@ abstract class AbstractEntity
                 sprintf('Key: "%s" is not an allowed property', $key));
         }
         if ($this->$key !== $value) {
-            $this->$key = $value;
+            $methodName = 'set' . ucwords($key);
+            if (method_exists($this, $methodName)) {
+                $this->$methodName($key);
+            } else {
+                $this->$key = $value;
+            }
             $this->propertyDirty[] = $key;
             $this->propertyLoaded[] = $key;
         }
