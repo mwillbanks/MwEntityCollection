@@ -1,0 +1,28 @@
+{
+    "name": "mwillbanks/zfc-entity-collection",
+    "description": "The Entity Collection module contains abstract classes that will help you to consume services for ZF2.",
+    "type": "library",
+    "keywords": [
+        "zf2", "entity collection"
+    ],
+    "homepage": "https://github.com/mwillbanks/zfcEntityCollection",
+    "authors": [
+        {
+            "name": "Mike Willbanks",
+            "email": "mike@digitalstruct.com",
+            "homepage": "http://blog.digitalstruct.com/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "zfcEntityCollection": "src/"
+        },
+        "classmap": [
+            "./"
+        ]
+    }
+}
