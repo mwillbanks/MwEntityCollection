@@ -8,8 +8,7 @@
 
 namespace ZfcEntityCollection;
 
-use Zend\Module\Manager,
-    Zend\Module\Consumer\AutoloaderProvider;
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 
 /**
  * Module Setup
@@ -17,7 +16,7 @@ use Zend\Module\Manager,
  * @category   ZfcEntityCollection
  * @package    Module
  */
-class Module implements AutoloaderProvider
+class Module implements AutoloaderProviderInterface
 {
     /**
      * Set Autoloader Configuration
