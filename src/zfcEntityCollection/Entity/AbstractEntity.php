@@ -97,6 +97,16 @@ abstract class AbstractEntity
     }
 
     /**
+     * Clean Dirty Properties
+     *
+     * @return AbstractEntity
+     */
+    public function clean()
+    {
+        $this->propertyDirty = array();
+    }
+
+    /**
      * Is the Entity Dirty
      * 
      * @return bool
