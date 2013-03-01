@@ -21,12 +21,6 @@ abstract class AbstractCollection implements Iterator, Countable
     protected $entity;
 
     /**
-     * Current Position
-     * @var int
-     */
-    protected $position = 0;
-
-    /**
      * Data
      * @param array
      */
@@ -62,7 +56,7 @@ abstract class AbstractCollection implements Iterator, Countable
      */
     public function current()
     {
-        return $this->buildEntity($this->position);
+        return $this->buildEntity(key($this->data));
     }
 
     /**
@@ -72,7 +66,7 @@ abstract class AbstractCollection implements Iterator, Countable
      */
     public function key()
     {
-        return $this->position;
+        return key($this->data);
     }
 
     /**
@@ -82,17 +76,19 @@ abstract class AbstractCollection implements Iterator, Countable
      */
     public function next()
     {
-        ++$this->position;
+        next($this->data);
+
+        return $this->current();
     }
 
     /**
      * Rewind
      *
-     * @return MwEntityCollection\Entity\AbstractEntity
+     * @return void
      */
     public function rewind()
     {
-        $this->position = 0;
+        reset($this->data);
     }
 
     /**
@@ -102,7 +98,9 @@ abstract class AbstractCollection implements Iterator, Countable
      */
     public function valid()
     {
-        return isset($this->data[$this->position]);
+        $key = key($this->data);
+
+        return isset($this->data[$key]);
     }
 
     /**

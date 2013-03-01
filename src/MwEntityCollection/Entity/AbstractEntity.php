@@ -44,6 +44,7 @@ abstract class AbstractEntity
     {
         if ($data !== null) {
             $this->fromArray($data);
+            $this->clean();
         }
     }
 
@@ -116,6 +117,16 @@ abstract class AbstractEntity
     }
 
     /**
+     * Is the Entity Loaded
+     *
+     * @return bool
+     */
+    public function isLoaded()
+    {
+        return (bool) count($this->propertyLoaded);
+    }
+
+    /**
      * Create a new object from an Array
      *
      * @return AbstractEntity
@@ -129,6 +140,7 @@ abstract class AbstractEntity
             }
             $this->$k = $v;
             $this->propertyLoaded[] = $k;
+            $this->propertyDirty[] = $k;
         }
 
         return $this;

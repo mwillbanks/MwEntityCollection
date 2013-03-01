@@ -1,4 +1,5 @@
 .DS_STORE
 composer.lock
 composer.phar
+php-cs-fixer.phar
 vendor/
