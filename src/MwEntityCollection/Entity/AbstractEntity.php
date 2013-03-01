@@ -1,21 +1,17 @@
 <?php
 /**
- * ZfcEntityCollection
- *
- * @category   ZfcEntityCollection
- * @package    ZfcEntityCollection
- * @subpackage Entity
+ * MwEntityCollection
  */
 
-namespace ZfcEntityCollection\Entity;
+namespace MwEntityCollection\Entity;
 
-use ZfcEntityCollection\Exception;
+use MwEntityCollection\Exception;
 
 /**
  * Abstract Entity
  *
- * @category   ZfcEntityCollection
- * @package    ZfcEntityCollection
+ * @category   MwEntityCollection
+ * @package    MwEntityCollection
  * @subpackage Entity
  */
 abstract class AbstractEntity
@@ -41,8 +37,8 @@ abstract class AbstractEntity
     /**
      * Constructor
      *
-     * @param array $data
-     * @return ZfcEntityCollection\Entity\AbstractEntity
+     * @param  array          $data
+     * @return AbstractEntity
      */
     public function __construct(array $data = null)
     {
@@ -54,25 +50,27 @@ abstract class AbstractEntity
     /**
      * Get Property
      *
-     * @param string $key
+     * @param  string                             $key
      * @return mixed
-     * @throws ZfcEntityCollection\Exception\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
-    public function __get($key) {
+    public function __get($key)
+    {
         if (!in_array($key, $this->propertyLoaded)) {
             throw new Exception\InvalidArgumentException(
                 sprintf('Key: "%k" was not loaded', $key));
         }
+
         return $this->$key;
     }
 
     /**
      * Set Property
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string                             $key
+     * @param  mixed                              $value
      * @return AbstractEntity
-     * @throws ZfcEntityCollection\Exception\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function __set($key, $value)
     {
@@ -93,6 +91,7 @@ abstract class AbstractEntity
             $this->propertyDirty[] = $key;
             $this->propertyLoaded[] = $key;
         }
+
         return $this;
     }
 
@@ -108,7 +107,7 @@ abstract class AbstractEntity
 
     /**
      * Is the Entity Dirty
-     * 
+     *
      * @return bool
      */
     public function isDirty()
@@ -123,7 +122,7 @@ abstract class AbstractEntity
      */
     public function fromArray(array $data)
     {
-        while(list($k, $v) = each($data)) {
+        while (list($k, $v) = each($data)) {
             if (!property_exists($this, $k) || in_array($k, $this->propertyBlacklist)) {
                 throw new Exception\InvalidArgumentException(sprintf(
                     '$data key: "%d" was not listed in the allowed properties', $k));
@@ -131,13 +130,14 @@ abstract class AbstractEntity
             $this->$k = $v;
             $this->propertyLoaded[] = $k;
         }
+
         return $this;
     }
 
     /**
      * To Array
      *
-     * @param bool $dirty fetch dirty elements
+     * @param  bool  $dirty fetch dirty elements
      * @return array
      */
     public function toArray($dirty=false)
@@ -148,6 +148,7 @@ abstract class AbstractEntity
         foreach ($elements as $key) {
             $data[$key] = $this->$key;
         }
+
         return $data;
     }
 }

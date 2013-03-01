@@ -1,23 +1,15 @@
 <?php
 /**
- * ZfcEntityCollection
- *
- * @category   ZfcEntityCollection
- * @package    ZfcEntityCollection
- * @subpackage Db
+ * MwEntityCollection
  */
 
-namespace zfcEntityCollection\Db\ResultSet;
+namespace MwEntityCollection\Db\ResultSet;
 
 use Zend\Db\ResultSet\AbstractResultSet;
-use zfcEntityCollection\Entity\AbstractEntity;
+use MwEntityCollection\Entity\AbstractEntity;
 
 /**
  * Result Set
- *
- * @category   ZfcEntityCollection
- * @package    ZfcEntityCollection
- * @subpackage Db
  */
 class ResultSet extends AbstractResultSet
 {
@@ -30,7 +22,7 @@ class ResultSet extends AbstractResultSet
     /**
      * Set the row entity prototype
      *
-     * @param  AbstractEntity $objectPrototype
+     * @param  AbstractEntity           $objectPrototype
      * @throws InvalidArgumentException
      * @return ResultSet
      */
@@ -40,6 +32,7 @@ class ResultSet extends AbstractResultSet
             throw new \InvalidArgumentException('Entity must be of type AbstractEntity');
         }
         $this->entityPrototype = $entityPrototype;
+
         return $this;
     }
 
@@ -65,6 +58,7 @@ class ResultSet extends AbstractResultSet
         }
         $this->entity->fromArray($data);
         $this->entity->clean();
+
         return $this->entity;
     }
 }

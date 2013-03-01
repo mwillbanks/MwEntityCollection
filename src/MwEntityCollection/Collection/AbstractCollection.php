@@ -1,24 +1,16 @@
 <?php
 /**
- * ZfcEntityCollection
- *
- * @category   ZfcEntityCollection
- * @package    ZfcEntityCollection
- * @subpackage Collection
+ * MwEntityCollection
  */
 
-namespace ZfcEntityCollection\Collection;
+namespace MwEntityCollection\Collection;
 
-use Countable,
-    Iterator,
-    ZfcEntityCollection\Entity\AbstractEntity;
+use Countable;
+use Iterator;
+use MwEntityCollection\Entity\AbstractEntity;
 
 /**
  * Abstract Collection
- *
- * @category   ZfcEntityCollection
- * @package    ZfcEntityCollection
- * @subpackage Collection
  */
 abstract class AbstractCollection implements Iterator, Countable
 {
@@ -43,8 +35,8 @@ abstract class AbstractCollection implements Iterator, Countable
     /**
      * Constructor
      *
-     * @param array $data
-     * @return ZfcEntityCollection\Collection\AbstractCollection
+     * @param  array              $data
+     * @return AbstractCollection
      */
     public function __construct(array $data = null)
     {
@@ -66,7 +58,7 @@ abstract class AbstractCollection implements Iterator, Countable
     /**
      * Current
      *
-     * @return ZfcEntityCollection\Entity\AbstractEntity
+     * @return MwEntityCollection\Entity\AbstractEntity
      */
     public function current()
     {
@@ -86,7 +78,7 @@ abstract class AbstractCollection implements Iterator, Countable
     /**
      * Next
      *
-     * @return ZfcEntityCollection\Entity\AbstractEntity
+     * @return MwEntityCollection\Entity\AbstractEntity
      */
     public function next()
     {
@@ -96,7 +88,7 @@ abstract class AbstractCollection implements Iterator, Countable
     /**
      * Rewind
      *
-     * @return ZfcEntityCollection\Entity\AbstractEntity
+     * @return MwEntityCollection\Entity\AbstractEntity
      */
     public function rewind()
     {
@@ -116,7 +108,7 @@ abstract class AbstractCollection implements Iterator, Countable
     /**
      * Build Entity
      *
-     * @return ZfcEntityCollection\Entity\AbstractEntity
+     * @return MwEntityCollection\Entity\AbstractEntity
      */
     protected function buildEntity($position)
     {
@@ -127,6 +119,7 @@ abstract class AbstractCollection implements Iterator, Countable
 
         $entity = $this->entity;
         $this->data[$position] = $data = new $entity($data);
+
         return $data;
     }
 
@@ -138,13 +131,13 @@ abstract class AbstractCollection implements Iterator, Countable
     public function toArray()
     {
         $data = array();
-        foreach ($this->data as $entity)
-        {
+        foreach ($this->data as $entity) {
             if ($entity instanceof AbstractEntity) {
                 $entity = $entity->toArray();
             }
             $data[] = $entity;
         }
+
         return $data;
     }
 }

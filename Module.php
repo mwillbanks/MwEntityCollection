@@ -1,20 +1,14 @@
 <?php
 /**
- * ZfcEntityCollection
- *
- * @category   ZfcEntityCollection
- * @package    Module
+ * MwEntityCollection
  */
 
-namespace ZfcEntityCollection;
+namespace MwEntityCollection;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 
 /**
  * Module Setup
- * 
- * @category   ZfcEntityCollection
- * @package    Module
  */
 class Module implements AutoloaderProviderInterface
 {

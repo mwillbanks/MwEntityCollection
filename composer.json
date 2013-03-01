@@ -1,11 +1,11 @@
 {
-    "name": "mwillbanks/zfc-entity-collection",
+    "name": "mwillbanks/mw-entity-collection",
     "description": "The Entity Collection module contains abstract classes that will help you to consume services for ZF2.",
     "type": "library",
     "keywords": [
         "zf2", "entity collection"
     ],
-    "homepage": "https://github.com/mwillbanks/zfcEntityCollection",
+    "homepage": "https://github.com/mwillbanks/MwEntityCollection",
     "authors": [
         {
             "name": "Mike Willbanks",
@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-0": {
-            "zfcEntityCollection": "src/"
+            "MwEntityCollection": "src/"
         },
         "classmap": [
             "./"
